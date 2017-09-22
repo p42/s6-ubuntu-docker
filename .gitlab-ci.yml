@@ -1,0 +1,34 @@
+stages:
+  - build
+  - test
+
+before_script:
+  - docker info
+
+build-master:
+  stage: build
+  script:
+    - docker build --pull -t ci-cd .
+  only:
+    - master
+
+test-master:
+  stage: test
+  script:
+    - docker run --rm ci-cd /bin/true
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - docker run --rm ci-cd /bin/true
+  except:
+    - master
+    
+build:
+  stage: build
+  script:
+    - docker build --pull -t ci-cd .
+  except:
+    - master
