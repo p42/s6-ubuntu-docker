@@ -1,6 +1,10 @@
 stages:
   - build
   - test
+  
+variables:
+  IMAGE_NAME: "s6-ubuntu"
+  IMAGE_TAG: "latest"
 
 before_script:
   - docker info
@@ -8,27 +12,27 @@ before_script:
 build-master:
   stage: build
   script:
-    - docker build --pull -t ci-cd .
+    - docker build --pull -t "${IMAGE_NAME}:${IMAGE_TAG}" .
   only:
     - master
 
 test-master:
   stage: test
   script:
-    - docker run --rm ci-cd /bin/true
+    - docker run --rm "${IMAGE_NAME}:${IMAGE_TAG}" /bin/true
   only:
     - master
 
 test:
   stage: test
   script:
-    - docker run --rm ci-cd /bin/true
+    - docker run --rm "${IMAGE_NAME}:${IMAGE_TAG}" /bin/true
   except:
     - master
     
 build:
   stage: build
   script:
-    - docker build --pull -t ci-cd .
+    - docker build --pull -t "${IMAGE_NAME}:${IMAGE_TAG}" .
   except:
     - master
