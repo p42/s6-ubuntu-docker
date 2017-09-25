@@ -41,6 +41,7 @@ build:
 deploy_to_github:
   stage: deploy
   script:
-    - git push git@github.com:p42/s6-ubuntu-docker.git master
+    - git push git@github.com:p42/s6-ubuntu-docker.git master --tags
   only:
     - master
+    - tags
