@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - deploy
   
 variables:
   IMAGE_NAME: "s6-ubuntu"
@@ -36,3 +37,8 @@ build:
     - docker build --pull -t "${IMAGE_NAME}:${IMAGE_TAG}" .
   except:
     - master
+    
+deploy_to_github:
+  stage: deploy
+  script:
+    - git push git@github.com:p42/s6-ubuntu-docker.git master
