@@ -6,6 +6,7 @@ stages:
 variables:
   IMAGE_NAME: "s6-ubuntu"
   IMAGE_TAG: "latest"
+  GITHUB_PROJECT: "p42/s6-ubuntu-docker.git"
 
 before_script:
   - docker info
@@ -41,13 +42,13 @@ build:
 deploy_to_github:
   stage: deploy
   script:
-    - git push git@github.com:p42/s6-ubuntu-docker.git master
+    - git push git@github.com:${GITHUB_PROJECT} master
   only:
     - master
 
 deploy_tags_to_github:
   stage: deploy
   script:
-    - git push git@github.com:p42/s6-ubuntu-docker.git master --tags
+    - git push git@github.com:${GITHUB_PROJECT} master --tags
   only:
     - tags
