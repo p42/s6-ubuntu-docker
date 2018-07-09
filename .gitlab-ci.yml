@@ -58,6 +58,9 @@ deploy_to_github:
     - master
 
 deploy_tags_to_github:
+  tags:
+    - docker
+    - github-key
   stage: deploy
   script:
     - git push git@github.com:${GITHUB_PROJECT} master --tags
