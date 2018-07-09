@@ -12,6 +12,8 @@ before_script:
   - docker info
 
 build-master:
+  tags:
+    - docker
   stage: build
   script:
     - docker build --pull -t "${IMAGE_NAME}:${IMAGE_TAG}" .
@@ -19,6 +21,8 @@ build-master:
     - master
 
 test-master:
+  tags:
+    - docker
   stage: test
   script:
     - docker run --rm "${IMAGE_NAME}:${IMAGE_TAG}" /bin/true
@@ -26,6 +30,8 @@ test-master:
     - master
 
 test:
+  tags:
+    - docker
   stage: test
   script:
     - docker run --rm "${IMAGE_NAME}:${IMAGE_TAG}" /bin/true
@@ -33,6 +39,8 @@ test:
     - master
 
 build:
+  tags:
+    - docker
   stage: build
   script:
     - docker build --pull -t "${IMAGE_NAME}:${IMAGE_TAG}" .
@@ -40,6 +48,9 @@ build:
     - master
 
 deploy_to_github:
+  tags:
+    - docker
+    - github-key
   stage: deploy
   script:
     - git push git@github.com:${GITHUB_PROJECT} master
