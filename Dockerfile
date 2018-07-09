@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 MAINTAINER Jordan Clark jordan.clark@esu10.org
 
 ARG S6_OVERLAY_VERSION=1.21.4.0
