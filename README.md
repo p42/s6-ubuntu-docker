@@ -53,8 +53,9 @@ FROM project42/s6-ubunut:latest
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y cowsay && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-    
+
 ENTRYPOINT ["/init"]
 ~~~
 

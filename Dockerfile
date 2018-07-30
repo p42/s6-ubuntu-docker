@@ -8,6 +8,7 @@ COPY container-files /
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y wget tzdata && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     cd /tmp && \
     wget https://github.com/just-containers/s6-overlay/releases/download/v$S6_OVERLAY_VERSION/s6-overlay-amd64.tar.gz && \
