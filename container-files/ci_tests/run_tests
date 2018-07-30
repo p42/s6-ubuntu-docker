@@ -1,0 +1,125 @@
+#!/usr/bin/with-contenv bash
+
+# This file is used for tests specific to the master branch.
+# The CI Test structure is to call a single test file that iterates a directory of individual tests.
+# In keeping with standard testing prodcedures,
+# each test should be singular (at least as much as is possible).
+
+# Shell Colors
+set_shell_error() {
+  echo -e "\e[1m" # Style: bold
+  echo -e "\e[5m" # Style: blink
+  echo -e "\e[31m" # Text Color: Red
+}
+
+set_shell_info() {
+  echo -e "\e[1m" # Style: bold
+  echo -e "\e[33m" # Text Color: Yellow
+}
+
+set_shell_pass() {
+  echo -e "\e[1m" # Style: bold
+  echo -e "\e[32m" # Text Color: Green
+}
+
+set_shell_warning() {
+  echo -e "\e[1m" # Style: bold
+  echo -e "\e[35m" # Text Color: Magenta
+}
+
+reset_shell() {
+  echo -e "\e[0m" # Reset all shell attributes
+}
+
+
+
+# Execute tests function
+execute_tests() {
+  FUNCTION_INPUT=$1
+  if [ -d "${FUNCTION_INPUT}" ]; then                  # Test that it is a directory
+
+    set_shell_info
+    echo "CI: running tests in ${FUNCTION_INPUT}/"
+    reset_shell
+
+  for FILE in ${FUNCTION_INPUT}/*; do      # Walk through items in the directory
+    if [ -x ${FILE} ] && [ -f ${FILE} ]; then       # Make sure it is executable and a file
+
+      set_shell_info
+      echo "CI: executing test: ${FILE}"
+      reset_shell
+
+      ${FILE}                                   # Execute the test
+      # $? gives us the exit code of the previous process (last file to run)
+      # which allows us to print fail if a test fails.
+      # Please make sure and print reasons for failure.
+      RC=$?                                     # Read in the exit code
+      if [[ ${RC} != 0 ]]; then                 # Did the test fail?
+        # If a file returned non-zero, print out that file so we have some testing recourse.
+
+        set_shell_error
+        echo "CI: ${FILE} exited with non-zero exit code"
+        reset_shell
+
+        exit ${RC};                             # Exit and return the non-zero exit code
+      else                                      # Test passed
+
+        set_shell_pass
+        echo "CI: ${FILE} test passed"
+        reset_shell
+
+      fi # end test failed
+    else # not executable or a file
+
+      set_shell_warning
+      echo "CI: skipping ${FILE} because it is not executable or not a file"
+      reset_shell
+
+    fi # end executable test
+  done # end of items in directory
+  fi # end Test directory
+}
+
+# If no input set it to "all"
+if [ $# -eq 0 ]; then
+  TESTS="all"
+
+  set_shell_info
+  echo -e "CI: No tests supplied at runtime: running all tests"
+  reset_shell
+
+else # use input as test directory
+  TESTS=$1
+  if [[ ${TESTS} == "all" ]]; then
+
+    set_shell_info
+    echo -e "CI: All tests will be run"
+    reset_shell
+
+    [ ! -d /ci_tests/all ] || echo -e "\e[1m\e[35mCI: Warning: a test directory /ci_tests/all exists, this may not work as you want\e[0m"
+
+  else
+    if [ -d /ci_tests/${TESTS} ]; then
+
+      set_shell_info
+      echo -e "CI: running tests only from /ci_tests/${TESTS}/"
+      reset_shell
+
+    else
+
+      set_shell_error
+      echo -e "CI: /ci_tests/${TESTS} is not a valid test directory, Failing"
+      reset_shell
+
+      exit 1
+    fi # end input directory
+  fi # end input not all
+fi # end input
+
+if [[ ${TESTS} == "all" ]]; then                  # Run all tests
+  for DIRECTORY in /ci_tests/*; do                # Walk through all items in /ci_tests/
+    execute_tests ${DIRECTORY}
+  done # end all items
+else                                              # Test directory passed in
+  execute_tests /ci_tests/${TESTS}
+fi # end run_tests

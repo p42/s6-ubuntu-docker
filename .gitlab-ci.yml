@@ -16,8 +16,19 @@ build-master:
     - docker
   stage: build
   script:
-    - docker build --pull -t "${IMAGE_NAME}:${IMAGE_TAG}" .
+    - git checkout master
+    - docker build --pull -t "${IMAGE_NAME}:latest" .
   only:
+    - master
+
+build:
+  tags:
+    - docker
+  stage: build
+  script:
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - docker build --pull -t "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}" .
+  except:
     - master
 
 test-master:
@@ -25,7 +36,7 @@ test-master:
     - docker
   stage: test
   script:
-    - docker run --rm "${IMAGE_NAME}:${IMAGE_TAG}" /bin/true
+    - docker run --rm "${IMAGE_NAME}:latest" /ci_tests/run_tests system
   only:
     - master
 
@@ -34,17 +45,19 @@ test:
     - docker
   stage: test
   script:
-    - docker run --rm "${IMAGE_NAME}:${IMAGE_TAG}" /bin/true
+    - docker run --rm "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}" /ci_tests/run_tests system
   except:
     - master
 
-build:
+deploy_to_github-master:
   tags:
     - docker
-  stage: build
+    - github-key
+  stage: deploy
   script:
-    - docker build --pull -t "${IMAGE_NAME}:${IMAGE_TAG}" .
-  except:
+    - git checkout master
+    - git push git@github.com:${GITHUB_PROJECT} master
+  only:
     - master
 
 deploy_to_github:
@@ -53,8 +66,9 @@ deploy_to_github:
     - github-key
   stage: deploy
   script:
-    - git push git@github.com:${GITHUB_PROJECT} master
-  only:
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - git push git@github.com:${GITHUB_PROJECT} ${CI_COMMIT_REF_NAME}
+  except:
     - master
 
 deploy_tags_to_github:
@@ -63,6 +77,7 @@ deploy_tags_to_github:
     - github-key
   stage: deploy
   script:
-    - git push git@github.com:${GITHUB_PROJECT} master --tags
+    - git checkout ${CI_COMMIT_REF_NAME}
+    - git push git@github.com:${GITHUB_PROJECT} ${CI_COMMIT_REF_NAME} --tags
   only:
     - tags
