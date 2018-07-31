@@ -48,7 +48,7 @@ This will present you with a shell on fresh container that will stop and remove 
 ###### Dockerfile that is based of of this image.
 
 ~~~
-FROM project42/s6-ubunut:latest
+FROM project42/s6-ubunutu:latest
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
