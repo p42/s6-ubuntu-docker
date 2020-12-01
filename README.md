@@ -18,12 +18,14 @@ The [s6-overlay project](https://github.com/just-containers/s6-overlay) is a ser
 |---|---|
 | latest | The most current build based on LTS.  Images based on latest may change often an possibly could break.  Test your images |
 | rolling | The most current build.  Images based on latest may change often an possibly could break.  Test your images |
+| 20.04 | Latest Ubuntu 20.04 LTS series |
 | 18.04 | Latest Ubuntu 18.04 LTS series |
 | 16.04 | Latest Ubuntu 16.04 LTS series |
 | 18.04.3 | Ubuntu Linux 18.04.3 built on 2019-01-13 |
 | 18.04.1 | Ubuntu Linux 18.04.1 built on 2018-07-30 |
-| 1.22.0.0 | Ubuntu 18.04 with S6 Overlay v1.22.0.0 built on 2019-01-13 |
+| 2.0.0.0 | Ubuntu 20.04 with S6 Overlay v2.0.0.0 built on 2020-12-01 |
 | 1.22.1.0 | Ubuntu 18.04 with S6 Overlay v1.22.1.0 built on 2019-01-13 |
+| 1.22.0.0 | Ubuntu 18.04 with S6 Overlay v1.22.0.0 built on 2019-01-13 |
 | 1.21.8.0 | Ubuntu 18.04 with S6 Overlay v1.21.8.0 built on 2019-01-13 |
 | 1.21.4.0 | Ubuntu 18.04 with S6 Overlay v1.21.4.0 built on 2018-07-09 |
 | 1.20.0.0 | Ubuntu 16.04 with S6 Overlay v1.20.0.0 built on 2017-09-25 |
