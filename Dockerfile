@@ -13,7 +13,8 @@ RUN apt-get update && \
     cd /tmp && \
     wget https://github.com/just-containers/s6-overlay/releases/download/v$S6_OVERLAY_VERSION/s6-overlay-amd64.tar.gz && \
     echo "$S6_OVERLAY_MD5HASH *s6-overlay-amd64.tar.gz" | md5sum -c - && \
-    tar xzf s6-overlay-amd64.tar.gz -C / && \
+    tar xzf s6-overlay-amd64.tar.gz -C / --exclude='./bin' && \
+    tar xzf s6-overlay-amd64.tar.gz -C /usr ./bin && \
     rm s6-overlay-amd64.tar.gz
 
 ENTRYPOINT ["/init"]
