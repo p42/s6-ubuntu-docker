@@ -16,7 +16,8 @@ The [s6-overlay project](https://github.com/just-containers/s6-overlay) is a ser
 
 | Tag | Description |
 |---|---|
-| latest | The most current build.  Images based on latest may change often an possibly could break.  Test your images |
+| latest | The most current build based on LTS.  Images based on latest may change often an possibly could break.  Test your images |
+| rolling | The most current build.  Images based on latest may change often an possibly could break.  Test your images |
 | 18.04 | Latest Ubuntu 18.04 LTS series |
 | 16.04 | Latest Ubuntu 16.04 LTS series |
 | 18.04.3 | Ubuntu Linux 18.04.3 built on 2019-01-13 |
