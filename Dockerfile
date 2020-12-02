@@ -1,8 +1,8 @@
 FROM ubuntu:rolling
 MAINTAINER Jordan Clark mail@jordanclark.us
 
-ARG S6_OVERLAY_VERSION=2.1.0.0
-ARG S6_OVERLAY_MD5HASH=27d7ac5bc9180d13d2bd565e8732bf67
+ARG S6_OVERLAY_VERSION=2.1.0.1
+ARG S6_OVERLAY_MD5HASH=5de76ba4e6d9c1b2b3ab8d8d3210c29d
 
 COPY container-files /
 
