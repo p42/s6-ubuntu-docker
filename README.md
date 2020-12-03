@@ -23,6 +23,10 @@ The [s6-overlay project](https://github.com/just-containers/s6-overlay) is a ser
 | 16.04 | Latest Ubuntu 16.04 LTS series |
 | 18.04.3 | Ubuntu Linux 18.04.3 built on 2019-01-13 |
 | 18.04.1 | Ubuntu Linux 18.04.1 built on 2018-07-30 |
+| 2.1.0.2 | Ubuntu 20.04 with S6 Overlay v2.1.0.2 built on 2020-12-02 |
+| 2.1.0.1 | Ubuntu 20.04 with S6 Overlay v2.1.0.1 built on 2020-12-02 |
+| 2.1.0.0 | Ubuntu 20.04 with S6 Overlay v2.1.0.0 built on 2020-12-02 |
+| 2.0.0.1 | Ubuntu 20.04 with S6 Overlay v2.0.0.1 built on 2020-12-01 |
 | 2.0.0.0 | Ubuntu 20.04 with S6 Overlay v2.0.0.0 built on 2020-12-01 |
 | 1.22.1.0 | Ubuntu 18.04 with S6 Overlay v1.22.1.0 built on 2019-01-13 |
 | 1.22.0.0 | Ubuntu 18.04 with S6 Overlay v1.22.0.0 built on 2019-01-13 |
